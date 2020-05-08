@@ -232,7 +232,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Depends: 
-    R (>= 3.10)
+    R (>= 3.1.0)
 Import: 
     ggplot2,
     MASS
@@ -263,6 +263,24 @@ Good news is Rstudio is able to work with Git and Github well. However, you may 
 There is [detialed introduction](https://r-pkgs.org/git.html) about how to use Rstudio and Github to maintain your package.
 
 ## Modify the `DESCRIPTION` file in the `prime.master` package
+
+After you upload your packge on the Github website, it is very straightforward to add it into the `prime.master` pacakge. You need to edit the `DESCRIPTION` file of the `prime.master` pacakge. In the following case, I add the `prime.test` into the `prime.master` via the `Remote` section. 
+
+```
+Package: prime.master
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.6),
+         prime.total.effect,
+         prime.test
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0.9000
+Remotes: github::prime-project-uic/prime.test, github::prime-project-uic/prime.total.effect
+```
 
 
 
