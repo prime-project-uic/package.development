@@ -13,18 +13,20 @@ Prime package development document
       - [Test the functions](#test-the-functions)
       - [Document the functions](#document-the-functions)
   - [Add a data set to your package](#add-a-data-set-to-your-package)
-      - [Use the `devtools::use_data`](#use-the-devtoolsuse_data)
-      - [Add document for your dataset](#add-document-for-your-dataset)
+      - [Use the `usethis::use_data`](#use-the-usethisuse_data)
+      - [Add document for your data
+        set](#add-document-for-your-data-set)
   - [Edit the `DESCRIPTION` file](#edit-the-description-file)
-  - [Add your package to the **`prime.master`**
-    package](#add-your-package-to-the-prime.master-package)
+      - [Add the long document for your
+        package:](#add-the-long-document-for-your-package)
       - [Upload your package to Github](#upload-your-package-to-github)
       - [Modify the `DESCRIPTION` file in the `prime.master`
         package](#modify-the-description-file-in-the-prime.master-package)
 
 # Introduction
 
-In this document, I summarize a simplifed workflow of the R package.
+In this document, I summarize a simplified workflow for the R package
+development.
 
 ## Outline of the workflow
 
@@ -34,9 +36,11 @@ The outline is the following:
     
     1.  Add functions, data
     2.  Add documents for your functions, data, and package  
-    3.  Update the package
+    3.  Update the package  
 
-2.  Add the package into the **`prime.master`** package
+2.  Release or upload your package  
+
+3.  Add the package into the **`prime.master`** package
 
 ## R package development resource
 
@@ -45,8 +49,8 @@ followings are some I’m using:
 
   - [Writing an R package from
     scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/).
-    In this article, the author gives a small and quick guidence for how
-    to create a package. If you don’t bulid any package before, you can
+    In this article, the author gives a small and quick guidance for how
+    to create a package. If you don’t build any package before, you can
     just follow this article and you will create you own package within
     10 minutes.
 
@@ -55,8 +59,7 @@ followings are some I’m using:
     gives detailed introduction and descriptions. This document is based
     on the structure of this book.
 
-  - [Object
-    documentation](http://r-pkgs.had.co.nz/man.html#text-formatting).
+  - [Object documentation](https://r-pkgs.org/man.html#man-functions).
     Besides the code, documentation is also very important. This website
     also introduces how to write document for a function.
 
@@ -88,14 +91,20 @@ create_package("~/Desktop/prime.test")
 ```
 
 After running those code, R will create a folder with your package name,
-which is the `prime.test` in this case.
+which is the `prime.test` in this case. This produces the smallest
+possible working package, with three components:
+
+1.  An `R/` directory, which you’ll learn about in [R
+    code](https://r-pkgs.org/r.html#r).
+2.  A basic `DESCRIPTION` file, which you’ll learn about in (package
+    metadata)\[<https://r-pkgs.org/description.html#description>\].
+3.  A basic `NAMESPACE` file, which you’ll learn about in the
+    [namespace](https://r-pkgs.org/namespace.html#namespace). Note you
+    **don’t need to manually modify** this file.
 
 ## R package structure
 
 ![](./fig/package.structure.png)
-
-Note that the package can also be created by Rstudio.
-![](./fig/create.package.png)
 
 # Add functions to your package
 
@@ -105,12 +114,19 @@ After you create a package, you can copy all of your functions into the
 Note that you can use the [class
 system](https://www.datamentor.io/r-programming/object-class-introduction/)
 in R, such as `S3` or `S4` for your package, so that your package will
-be efficient and elgent in terms of the code structure. However, I’m not
-an expert on this topic, so I may not talk too much of it in this
+be efficient and elegant in terms of the code structure. However, I’m
+not an expert on this topic, so I may not talk too much of it in this
 document. Further details of the class system of R can be found in
 [here](https://rstudio-education.github.io/hopr/s3.html#the-s3-system).
 
 ## Test the functions
+
+The workflow of testing your functions is the following:
+
+1.  Write a function
+2.  Load it with `devtools::load_all()`
+3.  Experiment with it in the console to see if it works
+4.  Rinse and repeat
 
 ## Document the functions
 
@@ -157,10 +173,10 @@ Note that
     then you just do not add the `@export` in the script.
 
 Further details of the documentation syntax can be found in
-[here](http://r-pkgs.had.co.nz/man.html#text-formatting).
+[here](https://r-pkgs.org/man.html#man-functions).
 
 After editing the script, you can run the following code to update the
-help documents of your pacakge.
+help documents of your package.
 
 ``` r
 document("~/Desktop/prime.test/")
@@ -168,7 +184,7 @@ install("~/Desktop/prime.test/")
 library(prime.test)
 ```
 
-After loading the `prime.test` pacakge. The help document of the
+After loading the `prime.test` package. The help document of the
 `prime.add` can be in the help section, which looks like the following
 
 ![](./fig/prime.add.document.png)
@@ -179,12 +195,12 @@ There are several ways to add a data into your package. Here, I
 introduce the most straightforward approach. Further details of adding a
 data set can be found in [here](http://r-pkgs.had.co.nz/data.html)
 
-## Use the `devtools::use_data`
+## Use the `usethis::use_data`
 
 Let’s create two random vectors and save them into the `prime.test`
 package. Note that in order to run the following code, you need to use
-the Rstudio to open your package `project`. Copy the folloiwng code to
-your R console and run. If everything is ok, you should get a notation
+the Rstudio to open your package `project`. Copy the following code to
+your R console and run. If everything is OK, you should get a notation
 saying your data set has been added into your package.
 
 ``` r
@@ -195,7 +211,7 @@ use_data(data.x)
 use_data(data.y)
 ```
 
-## Add document for your dataset
+## Add document for your data set
 
 Documentation of a data is similar with a function, the difference is
 that you need to write your document into a `.R` file in the `data/`
@@ -235,19 +251,30 @@ Then run the following code into your console.
 ``` r
 document("~/Desktop/prime.test/")
 install("~/Desktop/prime.test/")
-library(prime.test)
 ```
 
-After reload the `prime.test`, you can access your dataset just by their
-names, `data.x` and `data.y`. Besides, the help documents of the data
-set looks like the following
+After reload the `prime.test`, you can access your data set just by
+their names, `data.x` and `data.y`. Besides, the help documents of the
+data set looks like the following
 
 ![](./fig/data.document.png)
+
+An example of using the data and the add function
+
+``` r
+library(prime.test)
+head(data.x)
+[1] -0.560 -0.230  1.559  0.071  0.129  1.715
+head(data.y)
+[1] -0.710  0.257 -0.247 -0.348 -0.952 -0.045
+head(prime.add(data.x, data.y))
+[1] -1.271  0.027  1.312 -0.277 -0.822  1.670
+```
 
 # Edit the `DESCRIPTION` file
 
 The `DESCRIPTION` file stores important information about your package.
-A simplfied description file looks like the following.
+A simplified description file looks like the following.
 
     Package: prime.test
     Title: What the Package Does (One Line, Title Case)
@@ -272,20 +299,37 @@ A simplfied description file looks like the following.
         MASS
 
 Not that the `import` sections are for the required packages, so you
-don’t need to specify them during your function definations. A further
-detailed intorduction can be found in
+don’t need to specify them during your function definitions. A further
+detailed introduction can be found in
 [here](https://r-pkgs.org/description.html#description).
 
-# Add your package to the **`prime.master`** package
+## Add the long document for your package:
+
+There is another type of help document named vignettes. An example of it
+can be found
+[here](http://htmlpreview.github.io/?https://github.com/wal615/prime.total.effect/blob/master/doc/Summary.html).
+The workflow is following: ![](./fig/vignette.workfolow.png)
+
+The further detailed introduction can be found
+[here](https://r-pkgs.org/vignettes.html) \# Add your package to the
+**`prime.master`** package
 
 After you finish your package, you may consider add it to a master
-package so that your method and data will be avaiable to other groups
-when they isntall the master package. In order to achive that, one
-possible soluation is to
+package so that your method and data will be available to other groups
+when they install the master package. In order to achieve that, one
+possible solution is to
 
 1.  Upload your package to Github  
 2.  Add your Github link to the master package
 
 ## Upload your package to Github
+
+Git is a version control tool. Github is a website on which you can
+share your R package and other code with others. Good news is Rstudio is
+able to work with Git and Github well. However, you may need to be
+familar with the workflow of the Github.
+
+There is [detialed introduction](https://r-pkgs.org/git.html) about how
+to use Rstudio and Github to maintain your package.
 
 ## Modify the `DESCRIPTION` file in the `prime.master` package
