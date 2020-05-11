@@ -8,7 +8,6 @@ output:
 ---
   
 ```{r setup, include=FALSE}
-
 knitr::opts_chunk$set(echo = FALSE, 
                       comment = "", 
                       message = FALSE, 
@@ -248,6 +247,7 @@ The workflow is following:
 ![](./fig/vignette.workfolow.png)
 
 The further detailed introduction can be found [here](https://r-pkgs.org/vignettes.html)
+
 # Add your package to the **`prime.master`** package
 
 After you finish your package, you may consider add it to a master package so that your method and data will be available to other groups when they install the master package. In order to achieve that, one possible solution is to 
@@ -257,14 +257,15 @@ After you finish your package, you may consider add it to a master package so th
 
 ## Upload your package to Github
 
-Git is a version control tool. Github is a website on which you can share your R package and other code with others.
-Good news is Rstudio is able to work with Git and Github well. However, you may need to be familar with the workflow of the Github. 
+Git is a version control tool. Github is a website on which you can share your R package and other code with others. Evan Poworoznek has created a Github folder for [PRIME](https://github.com/niehs-prime). You could cantact him (Github username:@brjoubert) to add your github account to the project so that you could add your own project inside folder.
+
+Good news is Rstudio is able to work with Git and Github well. However, you may need to be familiar with the workflow of the Github. 
 
 There is [detialed introduction](https://r-pkgs.org/git.html) about how to use Rstudio and Github to maintain your package.
 
 ## Modify the `DESCRIPTION` file in the `prime.master` package
 
-After you upload your packge on the Github website, it is very straightforward to add it into the `prime.master` pacakge. You need to edit the `DESCRIPTION` file of the `prime.master` pacakge. In the following case, I add the `prime.test` into the `prime.master` via the `Remote` section. 
+After you upload your package on the Github website, it is very straightforward to add it into the `prime.master` package. You need to edit the `DESCRIPTION` file of the `prime.master` package. In the following case, I add the `prime.test` into the `prime.master` via the `Remote` section. 
 
 ```
 Package: prime.master
@@ -282,13 +283,29 @@ RoxygenNote: 7.1.0.9000
 Remotes: github::prime-project-uic/prime.test, github::prime-project-uic/prime.total.effect
 ```
 
+# Release your package 
 
+The outline of releasing a package is the following: 
 
+1. Pick a version number
+    * Define a sequence of number in the `Version` section of the `DESCRIPTION` file. 
+    * The format is `major.minor.patch`, e.g. 1.8.2
+1. Run and document `R CMD check`
+    * Operation system: MAC, Windows and Linux. (working at least under two environment)
+    * errors, warnings and notes
+    * The packages depend on your package can still work after update
+1. Check that you’re aligned with CRAN policies 
+    * Email address  
+    * Clearly identified the copyright holders in `DESCRIPTION`
+    * Working across multiple platforms
+    * No administer permission
+1. Update README.md and NEWS.md
+1. Submit the package to CRAN
+    * `devtools::release()`
+1. Prepare for the next version by updating version numbers
+1. Publicise the new version
 
-
-
-
-
+The further detail introduction of releasing a package could be found [here](https://r-pkgs.org/release.html)
 
 
 
