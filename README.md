@@ -99,8 +99,8 @@ possible working package, with three components:
 
 1.  An `R/` directory, which you’ll learn about in [R
     code](https://r-pkgs.org/r.html#r).
-2.  A basic `DESCRIPTION` file, which you’ll learn about in (package
-    metadata)\[<https://r-pkgs.org/description.html#description>\].
+2.  A basic `DESCRIPTION` file, which you’ll learn about in [package
+    metadata](https://r-pkgs.org/description.html#description).
 3.  A basic `NAMESPACE` file, which you’ll learn about in the
     [namespace](https://r-pkgs.org/namespace.html#namespace). Note you
     **don’t need to manually modify** this file.
@@ -380,7 +380,7 @@ The outline of releasing a package is the following:
       - Email address  
       - Clearly identified the copyright holders in `DESCRIPTION`
       - Working across multiple platforms
-      - No administer permission
+      - No root/admin permission
 4.  Update README.md and NEWS.md
 5.  Submit the package to CRAN
       - `devtools::release()`
